@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+{% block pagecontent  %}
+         
+        <div class="container-fluid p-0" align="center">
+            <!-- Devices SSH-->
+            <section class="resume-section" id="device-output" style="transform: translate(10px, 50px);">
+                <h2 class="mb-5"><span class="text-primary" style=" color:#594f8d; transform: translate(10px, 36px);"><h1>Device Output</h1></span></h2> <br>
+                
+                {% if noresint != "No Response from Device" %}
+                <table style="background-color:#FFFFE0;">
+                <thead class="thead-light">
+                    <tr  style="background-color:#BDB76B;color:white;">
+                            <th>Device Name</th>
+                            <th>Interface ID</th>
+                            <th>Interface IP Address</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    {% for device in resint %}
+
+                    <tr>
+                            <td>{{device.host}}</td>
+                        
+                            <td>{{device.interface}}</td>
+                       
+                            <td>{{device.ip_address}}</td>
+                    
+                </tr>
+                    {% endfor %}
+
+                    </tbody>
+                </table>
+
+                {% endif %}
+            </section>
+          
+<style>
+    table {
+        border-collapse: collapse;
+        border-radius: 1em;
+        overflow: hidden;
+        border-style: solid;
+        border-color: #060606;
+        }
+        
+        th, td {
+        padding: 1em;
+        background: #ddd;
+        border-bottom: 2px solid white; 
+        color: #060606;
+        }
+</style>
+{% endblock %}

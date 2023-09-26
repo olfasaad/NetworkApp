@@ -1,0 +1,229 @@
+{% extends 'base.html' %}
+{% block pagecontent  %}
+<form method="POST">
+    <p> <h1><span   style="font-size:30px; color:#a0455d; font-weight:bold;">Standard ACL (Access Control Lists)</span>  <i class="fas solid fa-cog fa-spin"></i></h1></p> <br><hr> <br>
+    <label for="name"><span style=" color:#060606;">List NAME:</span></label> <br>
+    <input type="text" id="fname" name="name" placeholder="Enter Your ACL Name"required><br>
+    <label for="id"><span style=" color:#060606;">List-number</span></label><br>
+    <input type="number" id="id" name="id" min="1" max="100"required><br>
+    <div class="custom-select" style="width:200px;">
+        <label for="interface"><span style=" color:#060606;">Interface Name:</span></label> 
+       <select class="select-items" name="select">
+        <option value="permit">Permit</option>
+          <option value="deny">deny</option>
+        </select>
+    </div> <br> <br>
+    <label for="ip"><span style=" color:#060606;">IP Source:</span></label> <br>
+    <input type="text" id="ip" name="ip" placeholder="Enter Your  IP source  | host hostname | any "required><br>
+    <label for="mask"><span style=" color:#060606;">source-wildcard</span></label> <br>
+    <input type="text" id="mask" name="mask" placeholder="Enter Your  wildcard-mask"><br> <br>
+    <label class='container'for="id"><span style=" color:#060606;">Pick Your Device:</span><br><br>
+      <table>
+        <tr>
+          <td><span id="example"><input type="checkbox"id="select-all" name="Router" value="all"><span style=" color:#060606;">CHECK ALL</span></span> </td>
+         <td></td>
+         <td></td>
+         <td></td>
+        </tr>
+         <tr>
+          <td> <center><img src="https://img.icons8.com/fluency/40/000000/router.png"/></center> </td>
+          <td><span id="example"><input type="checkbox" name="Router"value="Router1" class="checkboxname" ><span style=" color:#060606;">Router1</span></span></td>
+       <td> <span id="example"><input type="checkbox" name="Router" value="Router2" class="checkboxname" ><span style=" color:#060606;">Router2</span></span> </td>
+     <td><span id="example"> <input type="checkbox" name="Router" value="Router3"class="checkboxname" ><span style=" color:#060606;">Router3</span> </span></td>
+     </tr>
+     <tr>
+      <td> <center><img src="https://img.icons8.com/ultraviolet/35/000000/switch.png"/></center></td>
+       <td><span id="example"><input type="checkbox"name="Router" value="Switcher1" ><span style=" color:#060606;">Switcher1</span></span> </td>
+     <td> <span id="example"><input type="checkbox" name="Router" value="Switcher2" class="checkboxname" ><span style=" color:#060606;">Switcher2</span></span> </td>
+   <td><span id="example"> <input type="checkbox" name="Router" value="Switcher3" class="checkboxname" ><span style=" color:#060606;">Switcher3</span> </span></td>
+   </tr>
+   <tr>
+    <td> <center><img src="https://img.icons8.com/fluency/40/000000/router.png"/></center> </td>
+    <td><span id="example"><input type="checkbox" name="Router" value="Router4" class="checkboxname" ><span style=" color:#060606;">Router4</span></span></td>
+ <td> <span id="example"><input type="checkbox"name="Router" value="Router5" class="checkboxname" ><span style=" color:#060606;">Router5</span></span> </td>
+<td><span id="example"> <input type="checkbox" name="Router" value="Router6" class="checkboxname" ><span style=" color:#060606;">Router6</span> </span></td>
+</tr>
+      </table>
+       </label> 
+
+    <br><br><input type="submit" vlaue="Submit">
+</form>
+
+<br>
+<div class="conf">
+  <div class="item">
+<h3><i class="fas solid fa-code"></i>Configuration</h3> <br>
+<textarea placeholder="The Configuration ..."
+style="width: 350px;height: 200px;
+       padding: 10px; border:3px solid rgb(185, 155, 209);
+       background-color:aliceblue; font-size: .8rem;
+       letter-spacing: 1px; ">{{ result3 }}</textarea>
+       <br>
+  </div>
+  <div class="item">
+    <table> <tr>
+      <td><h6 style="color: #5f6d61; ">Devices Fail Configs </h6> </td>
+     <td> <h6 style="color: #30c64e;">{{ res }}</h6></td> <td> <img src="/static/images/bad.png" alt="" style="width: 30px;"></td> </tr>
+     <tr> <td><h6 style="color: #5f6d61; "> Total Device Failures </td>
+       <td ><h6 style="color: #30c64e;">{{ olfa }} </h6></td> <td> <img src="/static/images/bad.png" alt="" style="width: 30px;"></td>
+   </tr>
+   </table>
+</div>
+</div> <br>
+<div class="conf" style="padding-left: 36px;">
+  <h1 style="font-size:30px; color:#a0455d; font-weight:bold;"> <img src="https://img.icons8.com/external-sbts2018-flat-sbts2018/25/000000/external-terminal-basic-ui-elements-2.4-sbts2018-flat-sbts2018.png"/> Terminal </h1> <br>
+<textarea style="width: 830px;height: 200px;
+padding: 122px; border:3px solid rgb(185, 155, 209);
+background-color:aliceblue; font-size: .8rem;
+letter-spacing: 1px; "name="Terminal" id="" cols="30" rows="10">{{x}} </textarea>
+</div>
+<script type="text/javascript">
+  document.getElementById('select-all').onclick = function() {
+    var checkboxes = document.querySelectorAll('input[type="checkbox"]');
+    for (var checkbox of checkboxes) {
+        checkbox.checked = this.checked;
+    }
+}
+</script>
+<style>
+  .container {
+    display: block;
+    position: relative;
+    padding-left: 10px;
+    margin-bottom: 12px;
+    cursor: pointer;
+    font-size: 22px;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+  }
+.container input {
+  accent-color: #336daf;
+  height: 20px; /* not needed */
+  width: 20px; /* not needed */
+}
+  div.item{
+    display: inline-block;
+    vertical-align: -webkit-baseline-middle;
+    margin-left: 8px;
+    
+  }
+  h6{ font-size: larger;
+   
+    margin-left: 15px;
+    font-weight:bold;
+    font-size:20px;
+  }
+  table {
+    border-collapse: collapse;
+    border-radius: 1em;
+    overflow: hidden;
+    border-style: solid;
+    border-color: #060606;
+  }
+  
+  th, td {
+    padding: 1em;
+    background: #ddd;
+    border-bottom: 2px solid white; 
+  }
+  div.item{
+    display: inline-block;
+    vertical-align: -webkit-baseline-middle;
+    margin-left: 8px;
+    
+  }
+  h1{ font-size: larger;
+    font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode';
+   
+    margin-left: 15px;
+    font-weight:bold;
+    font-size:20px;
+  }
+   
+    .select-item div,.select-selected {
+        color: #ffffff;
+        padding: 8px 16px;
+        border: 1px solid transparent;
+        border-color: transparent transparent rgba(0, 0, 0, 0.1) transparent;
+        cursor: pointer;
+        user-select: none;
+      }
+    .select-items {
+        position: absolute;
+        background-color: beige;
+        top: 100%;
+        left: 0;
+        right: 0;
+        z-index: 99;
+      }
+    .select-items div:hover, .same-as-selected {
+        background-color: rgba(0, 0, 0, 0.1);
+      }
+    select{
+        width: 200%; 
+        padding: 12px 20px;
+        margin: 8px 0;
+        display: inline-block;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        box-sizing: border-box; 
+    }
+    input[type=text] {
+        width: 28%;
+        padding: 12px 20px;
+        margin: 8px 0;
+        display: inline-block;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        box-sizing: border-box;
+      }
+      input[type=number] {
+        width: 28%;
+        padding: 12px 20px;
+        margin: 8px 0;
+        display: inline-block;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        box-sizing: border-box;
+      }
+      
+      input[type=submit] {
+        width: 20%;
+        background-color: #994caf;
+        color: white;
+        padding: 14px 20px;
+        margin: 4px 0;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+      }
+      
+      input[type=submit]:hover {
+        background-color: #a0455d;
+      }
+      
+      form {
+        border-radius: 5px;
+        background-color: #f2f2f2;
+        padding: 20px;
+      }
+      .custom-select {
+        position: relative;
+        font-family: Arial;
+      }
+      div .conf {
+        border-radius: 5px;
+        background-color: #f2f2f2;
+        padding: 20px;
+      }
+    textarea::placeholder {
+        font-size: 1rem;
+        color: #0f0101;
+        font-family: 'Roboto', sans-serif;
+    }
+ 
+  
+</style>
+{% endblock %}

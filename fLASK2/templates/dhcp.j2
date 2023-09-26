@@ -1,0 +1,7 @@
+ip dhcp pool {{ pool }}
+ network {{ network }}
+ default-router {{ def_router }}
+ dns-server {{ dns }}
+ exit
+ do wr
+!

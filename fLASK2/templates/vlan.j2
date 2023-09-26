@@ -1,0 +1,7 @@
+interface Vlan{{ id }}
+ description  {{ namevlan }}
+ ip address {{ip}} {{subnet}}
+ no shutdown
+ exit
+ do wr
+ !

@@ -1,0 +1,144 @@
+{% extends 'base.html' %}
+{% block pagecontent  %}
+<title>{{ title }}</title>
+<center>
+<div class="container" style="text-align: center;" >
+  <center>
+<form method="POST" action=" " class="form-inline">
+  <div class="core" style="border: #a0455d solid 0.5px;
+  height: 250px;
+    width: 871px;
+    text-align: center;
+    
+    margin-top: 63px;">
+    <br><br>
+    <div id="bloc2" class="box" style="margin-top: 72px;">
+        <label><span style=" color:#060606; font-size: 24px;">Device Type</span></label>
+        <select class="mySelect" name="choix1" >
+          <option selected>Cisco </option>
+        </select>
+      </div>
+      <div id="bloc1"class="box">
+        <label><span style=" color:#060606;font-size: 24px;">NAPALM Getter</span></label>
+        <select  class="mySelect" name="choix">
+          <option >Facts</option>
+          <option >Interface</option>
+        </select>
+      </div>
+    
+  <br><br><br>
+     <input  align="center" type="submit" value="Submit">
+     <br><br>
+  </div>
+</form>
+</center>
+ <br>
+ <br>
+</center>
+  <!-- Devices SSH-->
+  <center>
+  <section class="resume-section" id="device-output" >
+
+
+    {% if noresfac != "No Response from Device" %}
+          <h2 class="mb-5"><span class="text-primary" style=" color:#894e74; "><h1>Device Output</h1></span></h2> <br>
+          <table
+          class="table table-responsive-sm table-bordered table-hover mt-5" style="background-color:#a0455d">
+          <thead class="thead-light">
+              <tr  style="background-color:#9d6590;color:white;">
+                  <th>Device Name</th>
+                  <th>Device Vendor</th>
+                  <th>Model</th>
+                  <th>OS Version</th>
+                  <th>Serial No</th>
+                  <th>Device Up Time</th>
+                </tr>
+              </thead>
+              <tbody>
+          {% for Devices in resfac %}
+          <tr>
+                 <td>{{ Devices['host'] }}</td>
+          
+                 <td>{{Devices['vendor']}}</td>
+           
+                 <td>{{Devices['model']}}</td>
+           
+                 <td>{{Devices['version']}}</td>
+
+                 <td>{{Devices['ser_num']}}</td>
+        
+                 <td>{{Devices['uptime']}}Seconds</td>
+               </tr>
+               {% endfor %}
+
+               </tbody>
+               
+           </table>
+           
+     {% endif %}
+ </section>
+</center>
+
+</div>
+<style>
+ 
+  .container{
+  
+  background-color: #f2f2f2;
+  
+  border: #f2f2f2 solid 1px;}
+  .resume-section{
+    background-color: #f2f2f2;
+  
+  border: #f2f2f2 solid 1px;
+  }
+  #bloc1, #bloc2
+{
+    display:inline;
+}
+table {
+  border-collapse: collapse;
+  border-radius: 1em;
+  overflow: hidden;
+  border-style: solid;
+  border-color: #060606;
+  }
+  
+  th, td {
+  padding: 1em;
+  background: #ddd;
+  border-bottom: 2px solid white; 
+  color: #060606;
+  }
+  select.mySelect{
+    background: #2673C0;
+    color: #fff;
+    padding: 0 20px;
+    width: 160px;
+    height: 40px;
+    font-size: 22px;
+}
+select.mySelect option{
+	color: #fff;
+    padding: 0 20px;
+}
+.form-inline input {
+  vertical-align: middle;
+  margin: 5px 10px 5px 0;
+  padding: 10px;
+  background-color: #fff;
+  border: 1px solid #ddd;
+}
+input[type=submit] {
+  width: 20%;
+  background-color: #2673C0;
+  color: white;
+  padding: 14px 20px;
+  margin: 4px 0;
+  border: none;
+  font-size: 19px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+</style>
+{% endblock %}

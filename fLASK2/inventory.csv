@@ -1,0 +1,9 @@
+name,hostname,port,username,password,secret,groups
+Router1,192.168.175.11,22,cisco,cisco,cisco,IOS_Routers
+Router2,192.168.175.12,22,cisco ,cisco,cisco,IOS_Routers
+Router3,192.168.175.13,22,cisco,cisco,cisco,IOS_Routers
+Switcher2,192.168.175.15,22,cisco,cisco,cisco,IOS_Switches
+Switcher3,192.168.175.16,22,cisco,cisco,cisco,IOS_Switches
+Router4,192.168.175.18,22,cisco,cisco,cisco,IOS_Routers
+Router5,192.168.175.19,22,cisco,cisco,cisco,IOS_Routers
+Switcher1,192.168.175.14,22,cisco,cisco,cisco,IOS_Switches

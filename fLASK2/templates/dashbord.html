@@ -1,0 +1,492 @@
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+ 
+<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+{% extends 'base.html' %}
+{% block pagecontent  %}
+
+
+<script>
+  function closeForm2() {
+    document.getElementById("flash").style.display = "none";
+  }
+</script>
+<div class="container">
+  {% with messages = get_flashed_messages() %}
+
+  {% if messages %}
+
+  {% for message in messages %}
+
+<div id="flash" style="border: 1px solid rgb(150, 213, 171) ;  background-color: rgb(150, 213, 171); padding: 10px; width: 1140px; ">
+
+<span style="color: rgb(27, 159, 3);">
+  {{message}} 
+  <button type="button" style="     HEIGHT: 23px;
+  position: relative;
+  top: 2px;
+  right: -903px;
+  WIDTH: 14PX;
+  cursor: pointer; color:#fb1616; " class="close1"onclick="closeForm2()" >X</button>
+
+</span>
+  </div>
+
+
+  {% endfor %}
+
+  {% endif %}
+  {% endwith %}
+
+  
+<table><tr><th> Total Devices : {{long}}</th> <th><i class="fas light fa-server"></i></th></tr></table><p><span style=" color:#060606;    HEIGHT: 23px;
+  position: relative;
+  top: -22px;
+  right: -1040px;
+  WIDTH: 14PX;
+  cursor: pointer;" id="time">
+</span></p>
+<a  style="color: #420fed;
+HEIGHT: 8px;
+position: relative;
+top: -14px;
+right: -940px;
+WIDTH: 32PX;
+font-size: 20px;
+cursor: pointer;" class="un" href="http://localhost:3080/static/web-ui/server/1/project/386a3a98-615e-4b6c-9dfa-4d679906e892"target="_blank">
+Clik here To Show YOUR Network </a></p> 
+  
+<span>{{logsrec}} </span>
+
+<table>
+ 
+  <tr >
+     <th></th>
+      <th>ID</th>
+      <th>Hostname</th>
+      <th>IP_Address</th>
+      <th>Platform</th>
+      <th>Port</th>
+      <th>Username</th>
+      <th>Password</th>
+      <th>Secret</th>
+      <th>Groups</th>
+     
+      <th>
+       <button type="button"  class="button" data-toggle="modal" data-target="#mymodal" >AddNewDevice</button></th>
+  </tr>
+  
+{% for row in x %}
+
+<tr> 
+  
+   <td><img src="https://img.icons8.com/fluency/35/000000/router.png"/> <img src="https://img.icons8.com/ultraviolet/31/000000/switch.png"/></td>
+   <td>{{row.id}}</td>
+   <td>{{row.name}}</td>
+   <td>{{row.hostname}}</td>
+   <td>{{row.platform}}</td>
+   <td>{{row.port}}</td>
+   <td>{{row.username}}</td>
+   <td>{{row.password}}</td>
+   <td>{{row.secret}}</td>
+   <td>{{row.groups}}</td>
+
+   <td>
+    <a href="/update/{{row.id}}" class="bt2" data-toggle="modal" data-target="#modaledit{{row.id}}">Edit</a>
+     <a href="/delete/{{row.id}}" class="bt2" onclick="return confirm('Are You Sure To Delete ?')">Delete</a>
+     
+
+ </td>
+
+</tr>
+<!--   Update information      -->
+
+<div id="modaledit{{row.id}}" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+
+     <div class="modal-content">
+
+<center>
+        <div class="modal-header">
+
+          <img src="/static/images/network.png" alt="network"class="network" style="text-align:center ;">
+           <h4 class="modal-title">Update Information</h4>
+
+
+        </div>
+      </center>
+      
+      
+
+        <div class="modal-body">
+
+
+          <form action="{{url_for('update')}}" method="POST">
+
+              <div class="form-group">
+
+
+                 <label>Hostname:</label>
+                 <input type="hidden"  name="id" value="{{row.id}}">
+
+                 <input type="text" class="form-control" name="name" value="{{row.name}}">
+
+
+              </div>
+
+
+
+              <div class="form-group">
+
+
+                 <label>IP_Address:</label>
+
+                 <input type="text" class="form-control" name="hostname" value="{{row.hostname}}">
+
+
+              </div>
+
+
+              <div class="form-group">
+
+
+                 <label>Platform:</label>
+
+                 <input type="text" class="form-control" name="platform" value="{{row.platform}}">
+
+
+              </div>
+
+                <div class="form-group">
+
+
+                 <label>Port:</label>
+
+                 <input type="text" class="form-control" name="port" value="{{row.port}}">
+
+
+              </div>
+
+                <div class="form-group">
+
+
+                 <label>Username:</label>
+
+                 <input type="text" class="form-control" name="username" value="{{row.username}}">
+
+
+              </div>
+
+                <div class="form-group">
+
+
+                 <label>Password:</label>
+
+                 <input type="text" class="form-control" name="password" value="{{row.password}}">
+
+
+              </div>
+
+                <div class="form-group">
+
+
+                 <label>Secret:</label>
+
+                 <input type="text" class="form-control" name="secret" value="{{row.secret}}">
+
+
+              </div>
+
+<div class="form-group">
+
+
+                 <label>Groups:</label>
+
+                 <input type="text" class="form-control" name="groups" value="{{row.groups}}">
+
+
+              </div>
+
+              <div class="form-group">
+
+
+                 <button class="btn btn-primary" type="submit">Update</button>
+
+
+              </div>
+              <div class="modal-footer">
+
+
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+     
+     
+             </div>
+
+           </form>
+
+
+        </div>
+     </div>
+
+
+  </div>
+
+
+
+
+                   {% endfor %}
+
+
+               </table>
+
+
+          <br><br>
+
+   
+</div>     
+<!--//////////////////////////-->
+
+<!--//////////////////////////
+.close{
+  position: absolute;
+  top:-15px ;
+  right: -15px;
+  cursor: pointer;
+
+}-->
+<div id="mymodal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+     <div class="modal-content">
+      <center> <div class="modal-header">
+          <img src="/static/images/network.png" alt="network"class="network" style="text-align:center ;">
+           <h4 class="modal-title">Add Devices</h4>
+        </div> </center> 
+        <div class="modal-body">
+
+           <form action="{{url_for('insert')}}" method="POST">
+
+
+              <div class="form-group">
+
+                 <label>Hostname:</label>
+                 <input type="text" class="form-control"  placeholder="Hostname:" name="name" required="1">
+
+
+              </div>
+
+
+               <div class="form-group">
+
+
+                 <label>IP_Address:</label>
+                 <input type="text"  placeholder="IP_Address:" class="form-control" name="hostname" required="1">
+
+
+              </div>
+
+
+               <div class="form-group">
+
+
+                 <label>Platform:</label>
+                 <input type="text" placeholder="Platform:" class="form-control" name="platform" required="1">
+
+
+              </div>
+
+               <div class="form-group">
+
+
+                 <label>Port:</label>
+                 <input type="text" placeholder="port" class="form-control" name="port" required="1">
+
+
+              </div>
+
+               <div class="form-group">
+
+
+                 <label>Username:</label>
+                 <input type="text" placeholder="Username:" class="form-control" name="username" required="1">
+
+
+              </div>
+               <div class="form-group">
+
+
+                 <label>Password:</label>
+                 <input placeholder="Password:" type="password" class="form-control" name="password" required="1">
+
+
+              </div>
+
+               <div class="form-group">
+
+
+                 <label>Secret:</label>
+                 <input placeholder="Secret:" type="text" class="form-control" name="secret" >
+
+
+              </div>
+
+<div class="form-group">
+
+
+                 <label>Groups:</label>
+                 <input placeholder="Groups:" type="text" class="form-control" name="groups" required="1">
+
+
+              </div>
+           <div class="form-group">
+
+
+                 <button class="btn btn-primary" type="submit">AddDevice</button>
+
+
+              </div>
+
+
+           </form>
+           <div class="modal-footer">
+
+
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+ 
+ 
+         </div>
+
+        </div>
+
+
+  
+     </div>
+
+
+  </div>
+
+
+</div>
+
+<br>
+<script>
+  var dt = new Date();
+  document.getElementById("time").innerHTML = dt.toLocaleString();
+</script>
+<style>
+  div.sub{
+    padding-left: 2.5%;
+  }
+  *{
+    font-size:medium;
+  }
+  .archi{
+    padding-left: 4%;
+  }
+  .container{
+    border-radius: 5px;
+    background-color: #f2f2f2;
+    padding: 30px;
+    padding-left: 30px;
+  }
+  .archi{
+    width: 1052px;
+    height: 471px;
+  }
+  table {
+border-collapse: collapse;
+border-radius: 1em;
+overflow: hidden;
+border-style: solid;
+border-color: #060606;
+}
+
+th, td {
+padding: 1em;
+background: #ddd;
+border-bottom: 2px solid white; 
+color: #060606;
+}
+
+
+.formContainer input[type=text],
+.formContainer input[type=password]
+.formContainer input[type=number] {
+ width: 100%;
+ padding: 15px;
+ margin: 5px 0 20px 0;
+ border: none;
+ background: #eee;
+}
+input{
+  
+  width: 50%;
+       padding: 15px;
+       margin: 5px 0 20px 0;
+       border: none;
+       background: #eee;
+
+}
+.close{
+  position: absolute;
+  top: -2px;
+  right: -15px;
+  cursor: pointer;
+
+}
+
+.container {
+    width: 1333px;
+}
+.button {
+  background-color: #a0455d;
+  border: none;
+  color: white;
+  padding: 10px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 2px 2px;
+  cursor: pointer;
+}
+.bt2 {
+  background-color: #a0455d;
+  border: none;
+  color: white;
+  padding: 8px 20px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 2px 2px;
+  cursor: pointer;
+}
+
+</style>
+<script>
+document.getElementById("button").addEventListener("click",function(){
+  document.querySelector(".popup5").style.display="flex";
+})
+document.querySelector(".close").addEventListener('click',function(){
+ document.querySelector(".popup5").style.display="none";
+})
+document.getElementById("bt2").addEventListener("click",function(){
+  document.querySelector(".popup2").style.display="flex";
+})
+document.querySelector(".close").addEventListener('click',function(){
+ document.querySelector(".popup2").style.display="none";
+})
+
+function closeForm() {
+  document.getElementById("popupForm").style.display = "none";
+}
+function closeForm1() {
+  document.getElementById("popupFormxx").style.display = "none";
+}
+</script>
+{% endblock %}

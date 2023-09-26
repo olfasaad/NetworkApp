@@ -1,0 +1,185 @@
+{% extends 'base.html' %}
+
+<title>SaveConfig</title>
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<style>
+  /* Make the image fully responsive */
+  .carousel-inner img {
+    width: 100%;
+    height: 100%;
+  }
+  </style>
+
+
+  {% block pagecontent  %}
+<h3 style="color:#a0455d;">Save Show Command Output</h3>
+
+<div class="p-3 mb-2 bg-info text-dark">
+  <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
+    <h4 style="color:red;">Save ShowCommand(by Group) Output to TextFile</h4><br>
+    <h4 style="color:#a0455d">* Example: show ip int brief</h4><br>
+
+    <ol class="breadcrumb">
+
+      <form action="{{url_for('saveshowcommand')}}" method="POST">
+        <input type="text" name="group" placeholder="Groupname">
+        <input type="text" name="command" placeholder="Showcommand"> <br> <br>
+        <input class="badge rounded-pill bg-info text-dark" value="RunShowByGroup" type="submit">
+        <br>
+        <br>
+        <div class="item">
+          <table> <tr>
+            <td><h6 style="color: #5f6d61; ">Devices Fail Configs </h6> </td>
+           <td> <h6 style="color: #30c64e;">{{ result }}</h6></td> <td> <img src="/static/images/bad.png" alt="" style="width: 30px;"></td> </tr>
+           <tr> <td><h6 style="color: #5f6d61; "> Total Device Failures </td>
+             <td ><h6 style="color: #30c64e;">{{ l1 }} </h6></td> <td> <img src="/static/images/bad.png" alt="" style="width: 30px;"></td>
+         </tr>
+         </table>
+      </div>
+
+      </form>
+
+    </ol>
+  </nav>
+</div>
+
+
+  <div class="p-3 mb-2 bg-info text-dark">
+    <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
+      <h4 style="color:red;">Save ShowCommand(by Name) Output to TextFile</h4><br>
+      <h4 style="color:#a0455d;">* Example: show ip int brief</h4><br>
+
+      <ol class="breadcrumb">
+
+        <form action="{{url_for('saveshowcommand1')}}" method="POST">
+          <input type="text" name="group1" placeholder="Name">
+          <input type="text" name="command1" placeholder="Showcommand"> <br> <br>
+          <input class="badge rounded-pill bg-info text-dark" type="submit" value="RunShowByName">
+          <br>
+          <br>
+          <div class="item">
+            <table> <tr>
+              <td><h6 style="color: #5f6d61; ">Devices Fail Configs </h6> </td>
+             <td> <h6 style="color: #30c64e;">{{ results }}</h6></td> <td> <img src="/static/images/bad.png" alt="" style="width: 30px;"></td> </tr>
+             <tr> <td><h6 style="color: #5f6d61; "> Total Device Failures </td>
+               <td ><h6 style="color: #30c64e;">{{ l }} </h6></td> <td> <img src="/static/images/bad.png" alt="" style="width: 30px;"></td>
+           </tr>
+           </table>
+        </div>
+        </form>
+
+      </ol>
+    </nav>
+  </div>
+
+</div>
+<br>
+ 
+<style>
+  div.sub{
+    padding-left: 5.5%;
+  }
+ 
+  table {
+    border-collapse: collapse;
+    border-radius: 1em;
+    overflow: hidden;
+    border-style: solid;
+    border-color: #060606;
+  }
+  
+  th, td {
+    padding: 1em;
+    background: #ddd;
+    border-bottom: 2px solid white; 
+    
+  }
+  #example1 {
+    border-spacing: 0 10px;
+    border: 2px solid rgb(147, 52, 109);
+    padding: 10px;
+
+    border-radius: 10px 
+  }
+  .container {
+    display: block;
+    position: relative;
+    padding-left: 20px;
+    margin-bottom: 12px;
+    cursor: pointer;
+    font-size: 22px;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+  }
+.container input {
+  accent-color: #336daf;
+  height: 20px; /* not needed */
+  width: 20px; /* not needed */
+}
+  div.item{
+    display: inline-block;
+    vertical-align: -webkit-baseline-middle;
+    margin-left: 8px;
+    
+  }
+  h6{ font-size: larger;
+    font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode';
+  
+    margin-left: 15px;
+    font-weight:bold;
+    font-size:20px;
+  }
+  input[type=text], select {
+    width: 50%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+  }
+  
+  input[type=submit] {
+    width: 20%;
+    background-color: #994caf;
+    color: white;
+    padding: 14px 20px;
+    margin: 4px 0;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+   
+  }
+  
+  input[type=submit]:hover {
+    background-color: #a0455d;
+  }
+  
+  form {
+    border-radius: 5px;
+    background-color: #f2f2f2;
+    padding: 20px;
+  }
+  div .conf {
+      border-radius: 5px;
+      background-color: #f2f2f2;
+      padding: 20px;
+    }
+  textarea::placeholder {
+      font-size: 1rem;
+      color: #0f0101;
+      font-family: 'Roboto', sans-serif;
+  }
+  
+
+  </style>
+
+
+{% endblock %}

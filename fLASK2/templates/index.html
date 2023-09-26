@@ -1,0 +1,281 @@
+{% extends 'base.html' %}
+{% block pagecontent  %}
+<title>{{ title }}</title>
+<div class="container">
+ <center>
+   <div>
+<form method="POST" action=" " class="form-inline"style=" width:50vw; margin-left : 7vw; padding: top -5px; ">
+  
+    <div class="box">
+        <label><span style=" color:#060606;">Device Type</span></label>
+        <select name="choix1" >
+          <option selected>Cisco </option>
+        </select>
+      </div>
+      <div class="box">
+        <label><span style=" color:#060606;">NAPALM Getter</span></label>
+        <select name="choix">
+          <option >Facts</option>
+          <option >Interface</option>
+        </select>
+      </div>
+    </center>
+  <br>
+     <center><input  align="center" type="submit" value="Submit"> </center>
+    
+</form>
+
+
+ <br>
+ <br>
+ <div class="container-fluid p-0" align="center">
+  <!-- Devices SSH-->
+  <section class="resume-section" id="device-output">
+
+
+    {% if noresfac != "No Response from Device" %}
+          <h2 class="mb-5"><span class="text-primary" style=" color:#894e74;"><h1>Device Output</h1></span></h2> <br>
+          <table
+          class="table table-responsive-sm table-bordered table-hover mt-5" style="background-color:#C4DBE0">
+          <thead class="thead-light">
+              <tr  style="background-color:#9d6590;color:white;">
+                  <th>Device Name</th>
+                  <th>Device Vendor</th>
+                  <th>Model</th>
+                  <th>OS Version</th>
+                  <th>Serial No</th>
+                  <th>Device Up Time</th>
+                </tr>
+              </thead>
+              <tbody>
+          {% for Devices in resfac %}
+          <tr>
+                 <td>{{ Devices['host'] }}</td>
+          
+                 <td>{{Devices['vendor']}}</td>
+           
+                 <td>{{Devices['model']}}</td>
+           
+                 <td>{{Devices['version']}}</td>
+
+                 <td>{{Devices['ser_num']}}</td>
+        
+                 <td>{{Devices['uptime']}}</td>
+               </tr>
+               {% endfor %}
+
+               </tbody>
+               
+           </table>
+           
+     {% endif %}
+ </section>
+
+</div>
+</div>
+<style>
+  .container{
+    border-radius: 5px;
+    background-color: #f2f2f2;
+    padding: 30px;
+    top: -150%;
+  }
+  .center{
+    position: absolute;
+    top: 150%;
+    left:50% ;
+    transform: translate(-50%,-50%);
+    width: 500px;
+    background: white;
+    border-radius: 10px;
+    transform: translate(-50%,-50%);
+}
+  input[type=submit] {
+    width: 20%;
+    background-color: #2673C0;
+    color: white;
+    padding: 14px 20px;
+    margin: 4px 0;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  input[type=submit]:hover {
+    background-color: #99CAC7;
+  }
+ 
+  table {
+    border-collapse: collapse;
+    border-radius: 1em;
+    overflow: hidden;
+    border-style: solid;
+    border-color: #060606;
+    }
+    
+    th, td {
+    padding: 1em;
+    background: #ddd;
+    border-bottom: 2px solid white; 
+    color: #060606;
+    }
+  
+  .box select {
+    background-color:  #2673C0;
+    color: white;
+    padding: 12px;
+    width: 250px;
+    border: none;
+    font-size: 20px;
+    box-shadow: 0 5px 25px rgba(0, 0, 0, 0.2);
+    -webkit-appearance: button;
+    appearance: button;
+    outline: none;
+  }
+  
+  .box::before {
+    content: "\f13a";
+    font-family: FontAwesome;
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 20%;
+    height: 100%;
+    text-align: center;
+    font-size: 28px;
+    line-height: 45px;
+    color: rgba(255, 255, 255, 0.5);
+    background-color: rgba(255, 255, 255, 0.1);
+    pointer-events: none;
+  }
+  
+  .box:hover::before {
+    color: rgba(255, 255, 255, 0.6);
+    background-color: rgba(255, 255, 255, 0.2);
+  }
+  
+  .box select option {
+    padding: 30px;
+  }
+  body {font-family: Arial, Helvetica, sans-serif;}
+* {box-sizing: border-box;}
+
+.form-inline {  
+  display: flex;
+  flex-flow: row wrap;
+  align-items: center;
+}
+
+.form-inline label {
+  margin: 5px 10px 5px 0;
+}
+
+.form-inline input {
+  vertical-align: middle;
+  margin: 5px 10px 5px 0;
+  padding: 10px;
+  background-color: #fff;
+  border: 1px solid #ddd;
+}
+
+.form-inline button {
+  padding: 10px 20px;
+  background-color: #2673C0;
+  border: 1px solid #ddd;
+  color: white;
+  cursor: pointer;
+}
+
+.form-inline button:hover {
+  background-color: #2673C0;
+}
+
+@media (max-width: 800px) {
+  .form-inline input {
+    margin: 10px 0;
+  }
+  
+  .form-inline {
+    flex-direction: column;
+    align-items: stretch;
+  }
+}
+</style>
+{% endblock %}
+
+<div id="modaledit{{row.id}}" class="modal fade" role="dialog" >
+  <div class="form" >
+    <div class="popup1"style="text-align: center;"  id="popupFormx">
+      <div class="popup-content1" >  
+       <form action="{{url_for('update')}}" method="POST" class="formContainer">
+         <img src="/static/images/network.png" alt="network"class="network" style="text-align:center ;">
+         <h2>UPDATE INFORMATION</h2>
+         <hr>
+         <input type="hidden"  name="id" value="{{row.id}}">
+        <input type="text" class="form-control" placeholder="Name:" value="{{row.name}}" name="name" required="1">
+         <input type="text" placeholder="Hostname:"class="form-control" value="{{row.hostname}}" name="hostname" required="1">
+    
+         <input placeholder="Platform:" type="text" class="form-control" value="{{row.platform}}"  name="platform" required="1">
+    
+         <input placeholder="port" type="text" class="form-control" value="{{row.port}}" name="port" required="1">
+    
+      
+         <input placeholder="Username:" type="text" class="form-control" value="{{row.username}}"  name="username" required="1">
+    
+         <input  placeholder="Password:" type="password" class="form-control" value="{{row.password}}" name="password" required="1">
+        
+         <input placeholder="Secret:" type="text" class="form-control" value="{{row.secret}}" name="secret" >
+        
+         <input placeholder="Groups:" type="text" class="form-control" value="{{row.groups}}" name="groups" required="1">
+         <button class="button" type="submit" >Update</button>
+         <button type="button" class="button" data-dismiss="modal" onclick="closeForm1()">Close</button>
+       </form>
+      </div>
+    </div>
+  </div>
+    
+  {% endfor %}
+  
+  </table>
+  <a href="/update/{{row.id}}" class="bt2" id="bt2" data-toggle="modal" data-target="#modaledit{{row.id}}">Edit</a>
+  <a href="/delete/{{row.id}}" class="bt2" onclick="return confirm('Are You Sure To Delete ?')">Delete</a>  
+  
+<!--EDIT add-->
+
+<div class="form" >
+  
+  <div class="popup" style="text-align: center;" id="popupForm">
+   
+    <div class="popup-content" >
+  
+      
+     <form action="{{url_for('insert')}}" method="POST" class="formContainer">
+       <img src="/static/images/network.png" alt="network"class="network" style="text-align:center ;">
+       
+       <h2>Add Devices</h2>
+       <hr>
+       <br>
+      <input type="text" class="form-control" placeholder="Name:" name="name" required="1" >
+       <input type="text" placeholder="Hostname:"class="form-control" name="hostname"  required="1">
+  
+       <input placeholder="Platform:" type="text" class="form-control" name="platform"  required="1">
+  
+       <input placeholder="port" type="text" class="form-control" name="port" required="1">
+  
+    
+       <input placeholder="Username:" type="text" class="form-control" name="username" required="1">
+  
+       <input  placeholder="Password:" type="password" class="form-control" name="password"  required="1">
+      
+       <input placeholder="Secret:" type="text" class="form-control" name="secret" required="1">
+      
+       <input placeholder="Groups:" type="text" class="form-control" name="groups" required="1">
+       <button class="button" type="submit" >AddDevice</button>
+       <button type="button" class="button" data-dismiss="modal" onclick="closeForm()">Close</button>
+     </form>
+    </div>
+  
+  </div>
+  </div>
+
+  <th><a href="#"class="button" id="button">AddNewDevice</a></th>

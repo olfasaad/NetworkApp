@@ -1,0 +1,30 @@
+---
+
+IOS_Routers:
+
+
+
+  platform: ios
+
+
+
+  username: cisco
+
+
+
+  password: cisco
+
+
+IOS_Switches:
+
+
+
+  platform: ios
+
+
+
+  username: cisco
+
+
+
+  password: cisco
